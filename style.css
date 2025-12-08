@@ -1,0 +1,238 @@
+:root {
+    --paper-bg: #ffffff;
+    --text-color: #333;
+    --header-bg: #e0e0e0;
+    --border-color: #999;
+    --highlight-color: #d32f2f;
+    /* Red pen for grading */
+    --correct-color: #388e3c;
+    --font-serif: "Batang", "Newsreader", serif;
+    /* Myeongjo style */
+}
+
+body {
+    background-color: #f0f2f5;
+    font-family: var(--font-serif);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.paper-container {
+    background-color: var(--paper-bg);
+    width: 100%;
+    max-width: 1000px;
+    /* A4 landscape-ish width */
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.paper-header {
+    border: 2px solid var(--text-color);
+    background-color: var(--header-bg);
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.paper-header h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.questions-grid {
+    column-count: 1;
+    /* Default mobile */
+    column-gap: 40px;
+}
+
+/* Tablet and Desktop: 2 columns */
+@media (min-width: 768px) {
+    .questions-grid {
+        column-count: 2;
+        column-rule: 1px solid var(--border-color);
+    }
+}
+
+.question-item {
+    break-inside: avoid;
+    /* Prevent splitting across columns */
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.question-text {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+}
+
+.question-number {
+    margin-right: 5px;
+}
+
+.question-image {
+    max-width: 100%;
+    display: block;
+    margin: 10px 0;
+    border: 1px solid #eee;
+}
+
+.options-list {
+    list-style: none;
+    /* We use custom markers */
+    padding: 0;
+    margin: 0;
+}
+
+.option-item {
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+}
+
+.option-item:hover {
+    background-color: #f9f9f9;
+}
+
+/* Hide default radio */
+.option-item input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+    opacity: 0;
+}
+
+/* Custom circled numbers: ① ② ③ ④ */
+.circle-num {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1px solid #777;
+    color: #555;
+    text-align: center;
+    line-height: 16px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    flex-shrink: 0;
+    background: #fff;
+}
+
+/* Selection State */
+.option-item input:checked+.circle-num {
+    background-color: #2c2c2c;
+    color: #fff;
+    border-color: #2c2c2c;
+}
+
+/* Grading Styles */
+.correct-answer .circle-num {
+    background-color: var(--correct-color);
+    color: white;
+    border-color: var(--correct-color);
+}
+
+.wrong-choice .circle-num {
+    background-color: var(--highlight-color);
+    color: white;
+    border-color: var(--highlight-color);
+    text-decoration: line-through;
+}
+
+.explanation {
+    margin-top: 8px;
+    padding: 8px;
+    background-color: #ffebeb;
+    border-left: 3px solid var(--highlight-color);
+    font-size: 0.85rem;
+    display: none;
+    /* Hidden by default */
+}
+
+.question-item.graded.incorrect .explanation,
+.question-item.graded.correct .explanation {
+    display: block;
+}
+
+.question-item.graded.correct .explanation {
+    background-color: #e8f5e9;
+    border-color: var(--correct-color);
+}
+
+/* Controls */
+.controls-area {
+    margin-top: 40px;
+    text-align: center;
+    border-top: 2px dashed #ccc;
+    padding-top: 20px;
+}
+
+.submit-btn {
+    background-color: #333;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.submit-btn:hover {
+    background-color: #555;
+}
+
+.score-display {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--highlight-color);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Image Wrapper for Overlays */
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.image-overlay-label {
+    position: absolute;
+    background: white;
+    border: 1px solid #777;
+    /* Match circle-num style roughly */
+    border-radius: 50%;
+    width: 20px;
+    /* Match circle-num */
+    height: 20px;
+    text-align: center;
+    line-height: 18px;
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #555;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mask to hide clean parts of the image if needed */
+.image-mask {
+    position: absolute;
+    background: white;
+    z-index: 5;
+}
