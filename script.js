@@ -80,7 +80,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container.appendChild(qEl);
     });
+    // 2. Immediate Feedback on Selection
+    container.addEventListener('change', (e) => {
+        if (e.target.matches('input[type="radio"]')) {
+            const input = e.target;
+            const qEl = input.closest('.question-item');
+            const qId = parseInt(qEl.dataset.id);
+            const questionData = questions.find(q => q.id === qId);
 
+            if (!questionData) return;
+
+            // Lock inputs for this question
+            const inputs = qEl.querySelectorAll('input');
+            inputs.forEach(inp => inp.disabled = true);
+
+            // Add 'graded' class to show explanations
+            qEl.classList.add('graded');
+
+            const userVal = parseInt(input.value);
+            const circleNums = qEl.querySelectorAll('.circle-num');
+
+            if (userVal === questionData.answer) {
+                // Correct
+                qEl.classList.add('correct');
+                circleNums[userVal].parentElement.classList.add('correct-answer');
+            } else {
+                // Wrong
+                qEl.classList.add('incorrect');
+                circleNums[userVal].parentElement.classList.add('wrong-choice');
+                // Show correct answer
+                circleNums[questionData.answer].parentElement.classList.add('correct-answer');
+            }
+        }
+    });
     // 2. Handle Submission (Grading)
     submitBtn.addEventListener('click', () => {
         let score = 0;
