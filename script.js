@@ -7,11 +7,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mapping for circled numbers
     const circleMap = ["①", "②", "③", "④"];
 
+    // Shuffle Function (Fisher-Yates)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Shuffle questions
+    shuffleArray(questions);
+
     // 1. Render all questions
     questions.forEach((q, index) => {
         const qEl = document.createElement('div');
         qEl.classList.add('question-item');
         qEl.dataset.id = q.id;
+
 
         // Image HTML if exists
         let imageHtml = '';
@@ -66,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         qEl.innerHTML = `
             <div class="question-text">
-                <span class="question-number">${q.id}.</span>
+                <span class="question-number">${index + 1}.</span>
                 <span>${q.question}</span>
             </div>
             ${imageHtml}
