@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>조경기능사 필기 기출문제</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="paper-container">
         <header class="paper-header">
             <h1>1과목 : 조경일반</h1>
+            <button id="reset-btn" class="reset-btn" type="button">새롭게 시작</button>
         </header>
-        
-        <form id="exam-form">
+
+        <form id="exam-form" autocomplete="off">
             <div class="questions-grid" id="questions-container">
                 <!-- Questions will be injected here via script.js -->
             </div>
@@ -27,4 +30,5 @@
     <script src="questions.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
